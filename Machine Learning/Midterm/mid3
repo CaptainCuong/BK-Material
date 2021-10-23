@@ -1,0 +1,25 @@
+p(+) = 5.1%
+
+p(-|covid) = 0.38
+
+p(+|covid) = 1-0.38=0.62
+
+
+Calculate PRECISION to make a decision because we want to get as many true positive cases among the tested cases as possible
+PRECISION = TP/(TP+FP)
+PRECISION = p(pos, covid)/(p(pos, covid)+p(pos, non-covid))
+
+Case 1: Test by yourself
+p(pos, non-covid) = 0.1%
+
+5.1%=p(+)= 0.62p(covid)+(1-p(covid))*0.1% => p(covid) = 8.07%
+PRECISION = 8.07%*62%/(5.1%*62%+0.1%) = 98%
+
+
+Case 2: Test by medical staff
+p(pos, non-covid) = 2.1%
+
+5.1%=p(+)= 0.62p(covid)+(1-p(covid))*2.1% => p(covid) = 5%
+PRECISION = 5%*62%/(5%*62%+2.1%) = 59.6%
+
+=> Conclusion: Test by yourself is better
