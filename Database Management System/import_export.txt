@@ -1,0 +1,39 @@
+////LOAD DATA////
+
+TERMINAL:
+bq load --source_format=CSV --autodetect mimetic-slice-343817:data_sample.data gs://example-captain/yob1881.txt
+
+LOAD FROM LOCAL:
+click on dataset -> Add table
+
+LOAD FROM EXTERNAL SOURCE:
+click on ADD DATA
+
+////EXPORT DATA////
+
+
+STATEMENT:
+
+EXPORT DATA OPTIONS(
+  uri='gs://bucket/example-captain/*.csv',
+  format='CSV',
+  overwrite=true,
+  header=true,
+  field_delimiter=';') AS
+SELECT string_field_0, string_field_1 FROM `mimetic-slice-343817.data_sample.data` ORDER BY string_field_0 LIMIT 10
+
+TERMINAL: EXTRACT
+
+bq extract \
+--compression GZIP \
+'data_sample.' \
+gs://example-captain/myfile.csv
+
+TERMINAL: QUERY
+
+bq query \
+--use_legacy_sql=false \
+'SELECT word
+FROM `bigquery-public-data.samples.shakespeare`' >> dataset.csv
+-----------------
+gsutil cp dataset.csv gs://example-captain
